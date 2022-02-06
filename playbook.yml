@@ -1,0 +1,6 @@
+---
+- name: Tasks
+  hosts: localhost
+  become: true
+  roles:
+    - { role: adduser, tags: [ user ] }
