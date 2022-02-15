@@ -3,4 +3,6 @@
 ansible-playbook -vv \
 	-i inventory/local.yml \
 	-k -K \
-	playbook.yml
+	playbook.yml \
+	-b --ask-vault-pass
+

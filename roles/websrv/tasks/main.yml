@@ -39,7 +39,7 @@
       - mariadb-server
       - python3-pymysql
     state: present
-
+  tags: [ mysql ]
 #- name: Create Mysql configuration file
 #  template: src=my.cnf.j2 dest=/etc/my.cnf
 #  notify:
