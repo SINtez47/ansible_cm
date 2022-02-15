@@ -1,0 +1,42 @@
+---
+- name: Create User
+  block:
+    - name: Create group
+      group:
+        name: "{{ group }}"
+
+    - name: Create user
+      user:
+        name: "{{ user.login }}"
+        password: "{{ user.password | password_hash('sha512') }}"
+        shell: /bin/bash
+        group: "{{ group }}"
+  rescue:
+    - name: Rollback
+      command: date
+
+- file:
+    path: "{{dir}}/.ssh"
+    state: directory
+
+- name: install packages
+  apt:
+    name:
+      - unzip
+      - docker
+      - wget
+    state: latest
+
+- name: Install Nginx Web Server on Debian Family
+  apt:
+    name=nginx
+    state=latest
+  when:
+    ansible_os_family == "Debian"
+  notify:
+    - nginx systemd
+
+- name: download mailcow
+  get_url:
+    url: https://github.com/mailcow/mailcow-dockerized/archive/refs/tags/2022-01a.zip
+    dest: "{{dir}}"
