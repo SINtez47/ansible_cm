@@ -9,4 +9,4 @@
     - vars/wordpress_vault.yml
 
   roles:
-    - { role: websrv, tags: [ user ] }
+    - { role: websrv, tags: [ wordpress, mysql, php ] }
