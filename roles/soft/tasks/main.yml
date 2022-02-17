@@ -1,0 +1,31 @@
+---
+- name: Download and unpack latest WordPress
+  unarchive:
+    src: https://wordpress.org/latest.tar.gz
+    dest: "/var/www/"
+    remote_src: yes
+    creates: "/var/www/wordpress"
+  tags: [ wordpress ]
+
+- name: Install Nginx Web Server on Debian Family
+  apt:
+    name=nginx
+    state=latest
+  when:
+    ansible_os_family == "Debian"
+  notify:
+    - nginx systemd
+
+- name: Install php-fpm and deps
+  apt:
+    name: ['php', 'php-fpm', 'php-mysql', 'php-curl', 'php-common']
+    state: latest
+  tags: [ php ]
+
+- name: Install Mysql package and deps
+  apt: 
+    name:
+      - mariadb-server
+      - python3-pymysql
+    state: present
+  tags: [ mysql ]

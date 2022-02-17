@@ -1,0 +1,39 @@
+- name: Make sure 'nginx' is started
+  systemd:
+    name: nginx
+    state: started
+    enabled: yes
+  register: result
+
+- name: Show result
+  debug:
+    msg: "{{ result }}"
+
+- name: Make sure 'mysql' is started
+  systemd:
+    name: mariadb
+    state: started
+    enabled: yes
+  register: result
+
+- name: Show result
+  debug:
+    msg: "{{ result }}"
+
+# Get file test
+- get_url:
+    url="http://localhost/wp-includes/images/media/document.png"
+    dest="tmp/document.png"
+  register: get_file
+
+- debug:
+    msg="file was downloaded"
+  when: get_file
+
+- name: calc time total
+  shell: curl -s -w %{time_total}\\n -o /dev/null http://localhost
+  register: stdout
+
+-  debug:
+    msg="Response ok"
+   when: stdout|float <= 0.5
