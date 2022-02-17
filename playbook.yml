@@ -9,9 +9,17 @@
     - vars/wordpress_vault.yml
     - vars/nginx.yml
 
-  roles:
-    - { role: soft, tags: [ wordpress, mysql, php ] }
-    - { role: db, tags: [ mysql ] }
-    - { role: websrv, tags: [wordpress] }
-    - { role: tests }
-    - { role: backup }
+- name: Include a soft play
+  import_playbook: play_soft.yml
+
+- name: Include a db play
+  import_playbook: play_db.yml
+
+- name: Include a websrv play
+  import_playbook: play_websrv.yml
+
+- name: Include a test play
+  import_playbook: play_tests.yml
+
+- name: Include a backup play
+  import_playbook: play_backup.yml

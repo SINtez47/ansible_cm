@@ -29,3 +29,11 @@
 - debug:
     msg="file was downloaded"
   when: get_file
+
+- name: calc time total
+  shell: curl -s -w %{time_total}\\n -o /dev/null http://localhost
+  register: stdout
+
+-  debug:
+    msg="Response ok"
+   when: stdout|float <= 0.5
