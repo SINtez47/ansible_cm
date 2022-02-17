@@ -1,0 +1,6 @@
+---
+- name: Backup DB
+  script: "roles/backup/files/db.sh {{ wp_db_root }}"
+
+- name: Backup nginx
+  script: "roles/backup/files/nginx.sh"

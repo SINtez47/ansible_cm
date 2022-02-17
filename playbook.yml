@@ -7,6 +7,11 @@
   # become_method: sudo
   vars_files:
     - vars/wordpress_vault.yml
+    - vars/nginx.yml
 
   roles:
-    - { role: websrv, tags: [ wordpress, mysql, php ] }
+    - { role: soft, tags: [ wordpress, mysql, php ] }
+    - { role: db, tags: [ mysql ] }
+    - { role: websrv, tags: [wordpress] }
+    - { role: tests }
+    - { role: backup }
