@@ -18,13 +18,18 @@ jobs:
         targets: ""
     - name: Install yamllint
       run: sudo apt-get install yamllint
-    
-  deployAnsible:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - uses: ./.github/actions/ansible
+    - name: script
+      run: PATH/script.sh
+      shell: bash
       with:
-        playbook: playbook.yml
-        inventory: localhost
+        password: ${{ secrets.ACCESS_TOKEN }}
+    
+#  deployAnsible:
+#    needs: build
+#    runs-on: ubuntu-latest
+#    steps:
+#    - uses: actions/checkout@v1
+#    - uses: ./.github/actions/ansible
+#      with:
+#        playbook: playbook.yml
+#        inventory: localhost
