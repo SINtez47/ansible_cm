@@ -1,0 +1,36 @@
+---
+- name: Copy nginx configuration
+  template: src=roles/websrv/templates/nginx.conf dest=/etc/nginx/nginx.conf
+
+- name: Copy nginx configuration for wordpress
+  template: src=roles/websrv/templates/default.conf dest=/etc/nginx/conf.d/default.conf
+  notify: restart nginx
+
+- name: restart nginx
+  service: name=nginx state=restarted enabled=yes
+
+- name: Disable default pool
+  command: mv /etc/php/8.1/fpm/pool.d/www.conf /etc/php/8.1/fpm/pool.d/www.disabled creates=/etc/php/8.1/fpm/pool.d/www.disabled
+  notify: restart php-fpm
+
+- name: Copy php-fpm configuration
+  template: src=roles/websrv/templates/wordpress.conf dest=/etc/php/8.1/fpm/pool.d/
+  notify: restart php8.1-fpm
+
+- name: restart php8.1-fpm
+  service: name=php8.1-fpm state=restarted
+
+
+- name: Start Mysql Service
+  service: name=mysqld state=started enabled=yes
+
+- name: restart mysql
+  service: name=mysqld state=restarted
+
+# WordPress Configuration
+
+- name: Set up wp-config
+  template:
+    src: "roles/websrv/templates/wp-config.php.j2"
+    dest: "/var/www/wordpress/wp-config.php"
+  tags: [ wordpress ]
