@@ -19,10 +19,7 @@ jobs:
     - name: Install yamllint
       run: sudo apt-get install yamllint
     - name: script
-      run: PATH/script.sh
-      shell: bash
-      with:
-        password: ${{ secrets.ACCESS_TOKEN }}
+      run: ${GITHUB_WORKSPACE}/script.sh
     
 #  deployAnsible:
 #    needs: build
