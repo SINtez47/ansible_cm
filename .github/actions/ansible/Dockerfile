@@ -1,4 +1,4 @@
-FROM  <DockerHub-UserName>/ansible-in-containers
+FROM  <sintez765>/ansible-in-containers
 
 COPY ./entrypoint.sh /entrypoint.sh
 
