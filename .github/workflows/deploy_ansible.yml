@@ -14,12 +14,12 @@ jobs:
     steps:
     - name: checkout repo
       uses: actions/checkout@v2
+      uses: ./.github/actions/ansible
       with:
         targets: ""
     - name: Install yamllint
       run: sudo apt-get install yamllint
     - name: Run Ansible
-      uses: ./.github/actions/ansible
       run: ./play.sh
 #  deployAnsible:
 #    needs: build
