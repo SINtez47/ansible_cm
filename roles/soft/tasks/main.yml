@@ -23,7 +23,7 @@
   tags: [ php ]
 
 - name: Install Mysql package and deps
-  apt: 
+  apt:
     name:
       - mariadb-server
       - python3-pymysql

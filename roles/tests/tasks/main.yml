@@ -1,3 +1,4 @@
+---
 - name: Make sure 'nginx' is started
   systemd:
     name: nginx
@@ -21,7 +22,9 @@
     msg: "{{ result }}"
 
 # Get file test
-- get_url:
+- name: Get file
+  delegate_to: localhost
+  get_url:
     url="http://localhost/wp-includes/images/media/document.png"
     dest="tmp/document.png"
   register: get_file
@@ -31,9 +34,10 @@
   when: get_file
 
 - name: calc time total
+  delegate_to: localhost
   shell: curl -s -w %{time_total}\\n -o /dev/null http://localhost
   register: stdout
 
--  debug:
+- debug:
     msg="Response ok"
-   when: stdout|float <= 0.5
+  when: stdout|float <= 0.5
