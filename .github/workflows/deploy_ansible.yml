@@ -25,7 +25,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - uses: ./.github/actions/ansible
-      with: 
+    - name: Play 
         run: ./play
 #        playbook: playbook.yml
 #        inventory: localhost
