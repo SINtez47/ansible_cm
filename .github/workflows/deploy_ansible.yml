@@ -19,7 +19,7 @@ jobs:
     - name: Install yamllint
       run: sudo apt-get install yamllint
     - name: Run Ansible
-      run: /home/runner/work/ansible_cm/ansible_cm/play.sh
+      run: /home/runner/work/ansible_cm/ansible_cm/.github/actions/ansible/play.sh
 #  deployAnsible:
 #    needs: build
 #    runs-on: ubuntu-latest
