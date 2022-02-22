@@ -14,19 +14,18 @@ jobs:
     steps:
     - name: checkout repo
       uses: actions/checkout@v2
-      uses: ./.github/actions/ansible
       with:
         targets: ""
     - name: Install yamllint
       run: sudo apt-get install yamllint
-    - name: Run Ansible
-      run: ./play.sh
-#  deployAnsible:
-#    needs: build
-#    runs-on: ubuntu-latest
-#    steps:
-#    - uses: actions/checkout@v1
-#    - uses: ./.github/actions/ansible
-#      with: 
+    
+  deployAnsible:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: ./.github/actions/ansible
+      with: 
+        run: ./play
 #        playbook: playbook.yml
 #        inventory: localhost
