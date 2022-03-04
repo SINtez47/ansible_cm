@@ -1,0 +1,6 @@
+---
+# tasks file for test_molecule_role
+- name: Get file
+  get_url:
+    url="http://localhost/wp-includes/images/media/document.png"
+    dest="/tmp/document.png"
