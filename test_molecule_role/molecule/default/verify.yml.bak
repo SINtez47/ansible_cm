@@ -9,18 +9,14 @@
       path: /tmp/testdir/
     register: directory
 
-  - name: Test dir exist
-    assert:
-      that:
-      - "directory.stat.exists"
-
   - name: test file
     stat:
       path: /tmp/testdir/test.txt
     register: file
 
 
-  - name: test file exist
+  - name: Test dir & file exist
     assert:
       that:
-      - "file.stat.exists"
+      - "directory.stat.exists"
+      - "file.stat.exist"
