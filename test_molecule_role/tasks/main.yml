@@ -1,0 +1,15 @@
+---
+# tasks file for test_molecule_role
+- name: Creates directory
+  file:
+    path: /tmp/testdir/
+    state: directory
+
+- name: shell command
+  shell: date +%Y%m%d-%H%M
+  register: output
+
+- name: copy the output to a local file
+  copy:
+    content: "{{ output.stdout }}"
+    dest: "/tmp/testdir/test.txt"
